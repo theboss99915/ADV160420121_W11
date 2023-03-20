@@ -25,7 +25,7 @@ class StudentListAdapter(val studenList:ArrayList<Student>)
         holder.view.txtName.text = studenList[position].name
 
         holder.view.btnDetail.setOnClickListener {
-            val action = StudentListFragmentDirections.actionStudentDetail()
+            val action = StudentListFragmentDirections.actionStudentDetail(studenList[position].id.toString())
             Navigation.findNavController(it).navigate(action)
         }
     }
