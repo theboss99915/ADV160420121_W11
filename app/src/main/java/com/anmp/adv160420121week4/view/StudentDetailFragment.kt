@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.anmp.adv160420121week4.R
+import com.anmp.adv160420121week4.util.loadImage
 import com.anmp.adv160420121week4.viewmodel.DetailViewModel
 import com.anmp.adv160420121week4.viewmodel.ListViewModel
 import kotlinx.android.synthetic.main.fragment_student_detail.*
@@ -36,6 +37,7 @@ class StudentDetailFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
         viewModel.fetch(userID)
         observeViewModel()
+
     }
 
     override fun onCreateView(
@@ -53,6 +55,10 @@ class StudentDetailFragment : Fragment() {
             txtName.setText(student.name)
             txtBod.setText(student.bod)
             txtPhone.setText(student.phone)
+
+            var imageView = imageViewDetail
+            var progressBar = progressBarDetail
+            imageView.loadImage(student.photoUrl, progressBar)
         })
     }
 
