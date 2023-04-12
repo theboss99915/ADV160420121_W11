@@ -1,6 +1,7 @@
 package com.anmp.adv160420121week4.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,10 +13,14 @@ import com.anmp.adv160420121week4.R
 import com.anmp.adv160420121week4.util.loadImage
 import com.anmp.adv160420121week4.viewmodel.DetailViewModel
 import com.anmp.adv160420121week4.viewmodel.ListViewModel
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_student_detail.*
 import kotlinx.android.synthetic.main.student_list_item.*
 import kotlinx.android.synthetic.main.student_list_item.txtID
 import kotlinx.android.synthetic.main.student_list_item.txtName
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -59,6 +64,18 @@ class StudentDetailFragment : Fragment() {
             var imageView = imageViewDetail
             var progressBar = progressBarDetail
             imageView.loadImage(student.photoUrl, progressBar)
+            btnNotif.setOnClickListener {
+                Observable.timer(5, TimeUnit.SECONDS)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe {
+                        Log.d("Messages", "five seconds")
+                        MainActivity.showNotification(student.name.toString(),
+                            "A new notification created",
+                            R.drawable.ic_baseline_account_circle_24)
+                    }
+            }
+
         })
     }
 
