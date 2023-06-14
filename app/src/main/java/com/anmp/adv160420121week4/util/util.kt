@@ -3,13 +3,17 @@ package com.anmp.adv160420121week4.util
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.TextView
+import androidx.databinding.BindingAdapter
 import com.anmp.adv160420121week4.R
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import java.util.*
 
 fun ImageView.loadImage(url: String?, progressBar: ProgressBar) {
     Picasso.get()
@@ -37,4 +41,10 @@ fun createNotificationChannel(context: Context, importance: Int, showBadge: Bool
         notificationManager.createNotificationChannel(channel)
 
     }
+}
+
+@BindingAdapter("android:imageUrl", "android:progressBar")
+fun loadImageURL(view: ImageView, url: String, pb: ProgressBar)
+{
+    view.loadImage(url,pb)
 }
